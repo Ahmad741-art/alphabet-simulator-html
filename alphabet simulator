@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Alphabet Simulator</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="alphabetCanvas" width="800" height="600"></canvas>
+    <script>
+        // Get the canvas element and its context
+        var canvas = document.getElementById('alphabetCanvas');
+        var ctx = canvas.getContext('2d');
+
+        // Set font properties
+        ctx.font = '48px serif';
+        ctx.fillStyle = 'black';
+
+        // Initialize current letter
+        let currentLetter = 'A';
+
+        // Function to draw a letter at a specified position
+        function drawLetter(x, y, letter) {
+            ctx.fillText(letter, x, y);
+        }
+
+        // Event listener for mouse click to draw the current letter
+        canvas.addEventListener('click', function(event) {
+            // Get the mouse click coordinates
+            var rect = canvas.getBoundingClientRect();
+            var x = event.clientX - rect.left;
+            var y = event.clientY - rect.top;
+
+            // Draw the current letter at the clicked position
+            drawLetter(x, y, currentLetter);
+
+            // Move to the next letter in the alphabet
+            if (currentLetter === 'Z') {
+                currentLetter = 'A';
+            } else {
+                currentLetter = String.fromCharCode(currentLetter.charCodeAt(0) + 1);
+            }
+        });
+
+        // Optional: Event listener for key press to set the current letter
+        document.addEventListener('keydown', function(event) {
+            var key = event.key.toUpperCase();
+            if (key >= 'A' && key <= 'Z') {
+                currentLetter = key;
+            }
+        });
+    </script>
+</body>
+</html>
